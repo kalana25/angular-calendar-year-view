@@ -29,7 +29,7 @@ export class AngularCalendarYearViewComponent implements OnInit {
   actionClicked = new EventEmitter<any>();
 
   loader: any = false;
-  days: any = [ "Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
+  days: any = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
   dayindex: any;
   daydetails: any = {};
   year: any = new Date().getFullYear();
@@ -39,11 +39,9 @@ export class AngularCalendarYearViewComponent implements OnInit {
 
   ) { }
   ngOnInit() {
-    console.log("OnInit");
     this.initCalendar(this.viewDate);
   }
   ngOnChanges() {
-    console.log("OnChanges");
     this.initCalendar(this.viewDate);
   }
   initCalendar(date) {
@@ -64,9 +62,9 @@ export class AngularCalendarYearViewComponent implements OnInit {
   generateCalendar(month, year) {
     let monthList = [];
     let nbweeks = this.getNbWeeks(month, year);
-    let dayone = new Date(year, month - 1, 1).getDay() - 1;
+    let dayone = new Date(year, month - 1, 1).getDay();
     let nbdaysMonth = new Date(year, month, 0).getDate();
-    let lastdayindex = new Date(year, month - 1, nbdaysMonth).getDay() - 1;
+    let lastdayindex = new Date(year, month - 1, nbdaysMonth).getDay();
     let lastday = 7;
     let day = 1;
     let today = new Date().toDateString();
@@ -97,15 +95,12 @@ export class AngularCalendarYearViewComponent implements OnInit {
     return monthList;
   }
   getNbWeeks(month, year) {
-    debugger;
     let dayone = new Date(year, month - 1, 1).getDay();
     let nbdaysMonth = new Date(year, month, 0).getDate();
     let lastday = new Date(year, month - 1, nbdaysMonth).getDay();
-    lastday = lastday - 1 == 0 ? 6 : lastday -1;
-    return (nbdaysMonth + (dayone - 1) + (6 - lastday)) / 7;
+    return (nbdaysMonth + dayone + (6 - lastday)) / 7;
   }
   getTodayEvents(day, month) {
-    debugger;
     this.daydetails = {}
 
     if (this.events.length > 0) {
@@ -113,22 +108,20 @@ export class AngularCalendarYearViewComponent implements OnInit {
       this.daydetails = clone(day);
       let d1 = new Date(this.year, month, day.day).toDateString();
 
-      // for (let index = 0; index < this.events.length; index++) {
-        this.events.forEach((element,index) => {
-          debugger
-          let d2 = element.start.toDateString();
-          if (d2 == d1) {
-            this.daydetails.events.push(element);
-          }
-          if (index == this.events.length - 1) {
-            let self = this;
-            setTimeout(() => {
-              self.loader = false;
-            }, 1000);
-          }
-        });
+      for (let index = 0; index < this.events.length; index++) {
+        const element = this.events[index];
+        let d2 = element.start.toDateString();
+        if (d2 == d1) {
+          this.daydetails.events.push(element);
+        }
+        if (index == this.events.length - 1) {
+          let self = this;
+          setTimeout(() => {
+            self.loader = false;
+          }, 1000);
+        }
 
-      // }
+      }
     }
   }
   getnbevents(day, month) {
