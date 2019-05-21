@@ -29,7 +29,7 @@ export class AngularCalendarYearViewComponent implements OnInit {
   actionClicked = new EventEmitter<any>();
 
   loader: any = false;
-  days: any = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  days: any = [ "Mo", "Tu", "We", "Th", "Fr", "Sa","Su"];
   dayindex: any;
   daydetails: any = {};
   year: any = new Date().getFullYear();
@@ -63,6 +63,7 @@ export class AngularCalendarYearViewComponent implements OnInit {
     let monthList = [];
     let nbweeks = this.getNbWeeks(month, year);
     let dayone = new Date(year, month - 1, 1).getDay();
+    dayone = (dayone===0) ? 7 : dayone;
     let nbdaysMonth = new Date(year, month, 0).getDate();
     let lastdayindex = new Date(year, month - 1, nbdaysMonth).getDay();
     let lastday = 7;
@@ -72,16 +73,16 @@ export class AngularCalendarYearViewComponent implements OnInit {
     for (let indexweek = 0; indexweek < nbweeks; indexweek++) {
       monthList[indexweek] = [];
       if (nbweeks == indexweek + 1) {
-        lastday = lastdayindex + 1;
+        lastday = lastdayindex;
       }
       if (indexweek > 0) {
-        dayone = 0;
+        dayone = 1;
       }
-      for (let indexday = dayone; indexday < lastday; indexday++) {
+      for (let indexday = dayone; indexday <= lastday; indexday++) {
         let d1 = new Date(year, month - 1, day).toDateString();
         let istoday = d1 == today;
         let colorsEvents = this.getnbevents(day, month - 1)
-        monthList[indexweek][indexday] = {
+        monthList[indexweek][indexday-1] = {
           day: day,
           istoday: istoday,
           colors: colorsEvents.color,
@@ -96,6 +97,7 @@ export class AngularCalendarYearViewComponent implements OnInit {
   }
   getNbWeeks(month, year) {
     let dayone = new Date(year, month - 1, 1).getDay();
+    dayone = (dayone === 0)?7:dayone;
     let nbdaysMonth = new Date(year, month, 0).getDate();
     let lastday = new Date(year, month - 1, nbdaysMonth).getDay();
     return (nbdaysMonth + dayone + (6 - lastday)) / 7;
