@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngyear-calender": [
+        "dist/ngyear-calender"
+      ],
+      "ngyear-calender/*": [
+        "dist/ngyear-calender/*"
+      ]
+    }
   }
 }

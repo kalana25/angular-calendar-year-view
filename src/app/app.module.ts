@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { PopoverModule } from 'ngx-bootstrap/popover'
 import { CustomCalenderYearViewI18n } from './x/year-translater';
 import { CalenderYearViewI18n } from './angular-calendar-year-view/angular-calender-year-view-i18n';
+import { NgyearCalenderModule } from 'projects//ngyear-calender/src/lib/ngyear-calender.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,6 +15,7 @@ import { CalenderYearViewI18n } from './angular-calendar-year-view/angular-calen
   imports: [
     BrowserModule,
     CommonModule,
+    NgyearCalenderModule,
     PopoverModule.forRoot()
   ],
   providers: [{ provide: CalenderYearViewI18n, useClass: CustomCalenderYearViewI18n }],

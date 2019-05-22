@@ -1,0 +1,28 @@
+{
+  "name": "ngyear-calender",
+  "version": "0.0.2",
+  "description": "Year Calender For Angular 2+",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kalana25/angular-calendar-year-view"
+  },
+  "author": "Kalana Mahaarachchi",
+  "contributors": [
+    "Kalana Mahaarachchi","Harshana Narangoda","Madhawa Priyashantha"
+  ],
+  "keywords": [
+    "node",
+    "angular",
+    "calender",
+    "year calender",
+    "year view",
+    "angular year calender",
+    "angular calender"
+  ],
+  "license": "MIT",
+
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0"
+  }
+}
