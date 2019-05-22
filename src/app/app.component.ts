@@ -53,4 +53,8 @@ export class AppComponent {
   eventClicked(event) {
     console.log(event)
   }
+
+  dayClicked(event) {
+    console.log(event);
+  }
 }

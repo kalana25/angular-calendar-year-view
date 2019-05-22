@@ -9,9 +9,9 @@
           </div>
         </div>
         <div *ngFor="let week of Month.days" class="flexdays">
-          <div *ngFor="let day of week;let i=index" [ngClass]="day?( day.istoday?'todayclass':(day.nb>0?'haveevents':'')):   'void_day'"
+          <div *ngFor="let day of week;let i=index" [ngClass]="day?( day.istoday?'todayclass':(( day.nb>0 || day.isSelected) ?'haveevents':'')):   'void_day'"
             [style.background-image]="day? ('linear-gradient(120deg, '+day.colors+',#fff)'):''" class="day" [outsideClick]="true"
-            [popover]="yearcalendarpoptemplate" placement="right" (onShown)="dayindex=i;getTodayEvents(day,m)">
+            [popover]="yearcalendarpoptemplate" placement="right" (onShown)="dayindex=i;getTodayEvents(day,m)" (click)="dateClicked(day,m)">
             {{day?.day}}
           </div>
         </div>

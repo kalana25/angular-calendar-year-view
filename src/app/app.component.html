@@ -1,1 +1,8 @@
-<angular-calendar-year-view  [themecolor]="themecolor" [events]="events"  [viewDate]="viewDate"  (eventClicked)="eventClicked($event)"  (actionClicked)="actionClicked($event)" ></angular-calendar-year-view>
+<angular-calendar-year-view  
+[themecolor]="themecolor" 
+[events]="events"  
+[viewDate]="viewDate"  
+(eventClicked)="eventClicked($event)"  
+(actionClicked)="actionClicked($event)" 
+(dayClicked) = "dayClicked($event)"
+></angular-calendar-year-view>

@@ -28,6 +28,9 @@ export class AngularCalendarYearViewComponent implements OnInit {
   @Output()
   actionClicked = new EventEmitter<any>();
 
+  @Output()
+  dayClicked = new EventEmitter<any>();
+
   loader: any = false;
   days: any = [ "Mo", "Tu", "We", "Th", "Fr", "Sa","Su"];
   dayindex: any;
@@ -87,7 +90,8 @@ export class AngularCalendarYearViewComponent implements OnInit {
           istoday: istoday,
           colors: colorsEvents.color,
           events: [],
-          nb: colorsEvents.nb
+          nb: colorsEvents.nb,
+          isSelected:false
         };
         day++;
       }
@@ -102,6 +106,12 @@ export class AngularCalendarYearViewComponent implements OnInit {
     let lastday = new Date(year, month - 1, nbdaysMonth).getDay();
     return (nbdaysMonth + dayone + (6 - lastday)) / 7;
   }
+
+  dateClicked(day,m) {
+    day.isSelected = (day.isSelected)?false:true;
+    this.dayClicked.emit(new Date(this.year,m,day.day));
+  }
+
   getTodayEvents(day, month) {
     this.daydetails = {}
 
