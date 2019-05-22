@@ -54,7 +54,11 @@ export class AppComponent {
     console.log(event)
   }
 
-  dayClicked(event) {
-    console.log(event);
+  daySelected(event) {
+    console.log('Selected',event);
+  }
+
+  dayDeselected(event) {
+    console.log('Deselected',event);
   }
 }

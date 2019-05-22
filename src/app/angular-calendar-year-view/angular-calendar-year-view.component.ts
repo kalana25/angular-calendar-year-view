@@ -14,6 +14,11 @@ export class AngularCalendarYearViewComponent implements OnInit {
       `--themecolor: ${this.themecolor};`
     );
   }
+
+  //This is the year calendar generated.
+  @Input()
+  year:number;
+
   @Input()
   themecolor:any='#ff0000'
   @Input()
@@ -29,13 +34,15 @@ export class AngularCalendarYearViewComponent implements OnInit {
   actionClicked = new EventEmitter<any>();
 
   @Output()
-  dayClicked = new EventEmitter<any>();
+  daySelected = new EventEmitter<any>();
+
+  @Output()
+  dayDeselected = new EventEmitter<any>();
 
   loader: any = false;
   days: any = [ "Mo", "Tu", "We", "Th", "Fr", "Sa","Su"];
   dayindex: any;
   daydetails: any = {};
-  year: any = new Date().getFullYear();
   calendar: any = [];
   spinner: any = true;
   constructor(              public sanitizer:DomSanitizer,
@@ -48,7 +55,7 @@ export class AngularCalendarYearViewComponent implements OnInit {
     this.initCalendar(this.viewDate);
   }
   initCalendar(date) {
-    this.year = date.getFullYear();
+    this.year =(this.year)?this.year: date.getFullYear();
     this.calendar = [];
     this.spinner = true;
     for (let index = 0; index < 12; index++) {
@@ -107,9 +114,13 @@ export class AngularCalendarYearViewComponent implements OnInit {
     return (nbdaysMonth + dayone + (6 - lastday)) / 7;
   }
 
-  dateClicked(day,m) {
+  dateSelected(day,m) {
     day.isSelected = (day.isSelected)?false:true;
-    this.dayClicked.emit(new Date(this.year,m,day.day));
+    if(day.isSelected) {
+      this.daySelected.emit(new Date(this.year,m,day.day));
+    } else {
+      this.dayDeselected.emit(new Date(this.year,m,day.day));
+    }
   }
 
   getTodayEvents(day, month) {
