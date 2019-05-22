@@ -15,6 +15,11 @@ export class AngularCalendarYearViewComponent implements OnInit {
       `--themecolor: ${this.themecolor};`
     );
   }
+
+  //This is the year calendar generated.
+  @Input()
+  year:number;
+
   @Input()
   themecolor: any = '#ff0000';
   @Input()
@@ -29,13 +34,18 @@ export class AngularCalendarYearViewComponent implements OnInit {
   @Output()
   actionClicked = new EventEmitter<any>();
 
+  @Output()
+  daySelected = new EventEmitter<any>();
+
+  @Output()
+  dayDeselected = new EventEmitter<any>();
+
   loader: any = false;
   days: any = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
   dayLables: any = [0, 1, 2, 3, 4, 5, 6];
 
   dayindex: any;
   daydetails: any = {};
-  year: any = new Date().getFullYear();
   calendar: any = [];
   spinner: any = true;
   constructor(public sanitizer: DomSanitizer, public calenderI18n: CalenderYearViewI18n
@@ -48,7 +58,7 @@ export class AngularCalendarYearViewComponent implements OnInit {
     this.initCalendar(this.viewDate);
   }
   initCalendar(date) {
-    this.year = date.getFullYear();
+    this.year =(this.year)?this.year: date.getFullYear();
     this.calendar = [];
     this.spinner = true;
     for (let index = 0; index < 12; index++) {
@@ -90,7 +100,8 @@ export class AngularCalendarYearViewComponent implements OnInit {
           istoday: istoday,
           colors: colorsEvents.color,
           events: [],
-          nb: colorsEvents.nb
+          nb: colorsEvents.nb,
+          isSelected:false
         };
         day++;
       }
@@ -105,6 +116,16 @@ export class AngularCalendarYearViewComponent implements OnInit {
     const lastday = new Date(year, month - 1, nbdaysMonth).getDay();
     return (nbdaysMonth + dayone + (6 - lastday)) / 7;
   }
+
+  dateSelected(day,m) {
+    day.isSelected = (day.isSelected)?false:true;
+    if(day.isSelected) {
+      this.daySelected.emit(new Date(this.year,m,day.day));
+    } else {
+      this.dayDeselected.emit(new Date(this.year,m,day.day));
+    }
+  }
+
   getTodayEvents(day, month) {
     this.daydetails = {};
 
