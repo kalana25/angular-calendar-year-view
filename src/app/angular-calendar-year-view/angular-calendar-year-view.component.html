@@ -2,16 +2,18 @@
   <div class="row">
     <div *ngFor="let Month of calendar;let m =index" class="col-md-3  col-sm-6 col-xs-12 ">
       <div class="monthcontainer ">
-        <p class="monthname">{{Month.date | date:'MMMM'}}</p>
+        <p class="monthname"> {{calenderI18n.getMonthName(m)}}</p>
         <div class="flexdays">
-          <div class="day" *ngFor="let label of days">
-            {{label}}
+          <div class="day" *ngFor="let labelIndex of dayLables">
+            {{calenderI18n.getWeekdayName(labelIndex)}}
           </div>
         </div>
         <div *ngFor="let week of Month.days" class="flexdays">
-          <div *ngFor="let day of week;let i=index" [ngClass]="day?( day.istoday?'todayclass':(day.nb>0?'haveevents':'')):   'void_day'"
-            [style.background-image]="day? ('linear-gradient(120deg, '+day.colors+',#fff)'):''" class="day" [outsideClick]="true"
-            [popover]="yearcalendarpoptemplate" placement="right" (onShown)="dayindex=i;getTodayEvents(day,m)">
+          <div *ngFor="let day of week;let i=index"
+            [ngClass]="day?( day.istoday?'todayclass':(day.nb>0?'haveevents':'')):   'void_day'"
+            [style.background-image]="day? ('linear-gradient(120deg, '+day.colors+',#fff)'):''" class="day"
+            [outsideClick]="true" [popover]="yearcalendarpoptemplate" placement="right"
+            (onShown)="dayindex=i;getTodayEvents(day,m)">
             {{day?.day}}
           </div>
         </div>
@@ -30,22 +32,19 @@
     <p [ngClass]="daydetails.istoday?'todaytext':''" class="pop_year_day_number">{{daydetails?.day}} </p>
     <div *ngIf="!loader">
       <div *ngFor="let event of daydetails.events">
-          <a   [style.color]="event.color.primary+'!importants'" 
-               class="icon-action-calendar" 
-               *ngFor='let action of event.actions' 
-                [innerHTML]='action.label' 
-                (click)="actionClickedFn(action.name,event)"
-                >
-            
-          </a>
-        <div class="circle_day_color" [style.background]="event.color.secondary" [style.border-color]="event.color.primary"></div>
+        <a [style.color]="event.color.primary+'!importants'" class="icon-action-calendar"
+          *ngFor='let action of event.actions' [innerHTML]='action.label' (click)="actionClickedFn(action.name,event)">
+
+        </a>
+        <div class="circle_day_color" [style.background]="event.color.secondary"
+          [style.border-color]="event.color.primary"></div>
         <p class="pop_year_event_title" (click)="eventClickedFn(event)">
           <span>
             {{event.start| date:'HH:mm'}}
           </span>
           {{event.title}}
         </p>
-        
+
       </div>
     </div>
     <div class="progressbar_popyear" *ngIf="!daydetails.events||(daydetails.events.length==0)&&!loader">
