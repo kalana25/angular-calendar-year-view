@@ -1,6 +1,6 @@
 {
   "name": "ngyear-calender",
-  "version": "0.0.2",
+  "version": "0.0.12",
   "description": "Year Calender For Angular 2+",
   "repository": {
     "type": "git",
@@ -8,7 +8,9 @@
   },
   "author": "Kalana Mahaarachchi",
   "contributors": [
-    "Kalana Mahaarachchi","Harshana Narangoda","Madhawa Priyashantha"
+    "Kalana Mahaarachchi",
+    "Harshana Narangoda",
+    "Madhawa Priyashantha"
   ],
   "keywords": [
     "node",
@@ -20,7 +22,6 @@
     "angular calender"
   ],
   "license": "MIT",
-
   "peerDependencies": {
     "@angular/common": "^6.0.0",
     "@angular/core": "^6.0.0"
