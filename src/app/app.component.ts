@@ -31,15 +31,15 @@ export class AppComponent {
   ];
   events: any = [
     {
-      start: new Date(),
-      end: new Date(),
+      start: new Date(2019,5,24,0,0,0),
+      end: new Date(2019,5,24,23,59,0),
       title: 'title event 1',
       color: this.colors.red,
       actions: this.actions
     },
     {
-      start: new Date(),
-      end: new Date(),
+      start: new Date(2019,5,25,0,0,0),
+      end: new Date(2019,5,25,23,59,0),
       title: 'title event 2',
       color: this.colors.yellow,
       actions: this.actions

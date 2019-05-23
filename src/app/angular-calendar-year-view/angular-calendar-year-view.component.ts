@@ -118,10 +118,11 @@ export class AngularCalendarYearViewComponent implements OnInit {
   }
 
   dateSelected(day,m) {
-    day.isSelected = (day.isSelected)?false:true;
+    day.isSelected = (day.isSelected || day.nb>0)?false:true;
     if(day.isSelected) {
       this.daySelected.emit(new Date(this.year,m,day.day));
     } else {
+      day.nb -=1;
       this.dayDeselected.emit(new Date(this.year,m,day.day));
     }
   }
